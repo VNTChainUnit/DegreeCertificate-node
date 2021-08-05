@@ -2,7 +2,7 @@ import { DubboProvider, dubbo } from '@dazejs/dubbo-provider';
 import BlocckChainService from './blockchain/main';
 
 @dubbo.registry('default')
-@dubbo.interface('com.xinyi.dc.blockchain.api.service.BlockChain')
+@dubbo.interface('com.xinyi.dc.blockchain.node.BlockChain')
 export default class extends DubboProvider {
 
   @dubbo.method()
