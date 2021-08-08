@@ -1,15 +1,11 @@
-
-import fs from 'fs';
-
-const Vnt:any = require('vnt')
-const TX:any = require('ethereumjs-tx')
-const vntkit:any = require('vnt-kit')
-import path from 'path'
-import Common from '../../../config/vntchain'
-import utils from '../utils'
-
-const aesDecrypt = utils.aesDecrypt
-const aesEncrypt = utils.aesEncrypt
+var fs = require('fs');
+var Vnt = require("vnt")
+var vntkit = require("vnt-kit")
+var TX= require("ethereumjs-tx")
+const path=require('path')
+const Common=require('../../../config/vntchain').default
+const aesDecrypt = require('../utils').aesDecrypt
+const aesEncrypt = require('../utils').aesEncrypt
 
 // 设置连接的节点
 var vnt = new Vnt();
@@ -23,7 +19,7 @@ var chainid = 2;
 var filePath = path.resolve(__dirname,Common.accountPath)
 var password = Common.accountPassword
 
-function openAccount(file:string, passwd:string) {
+function openAccount(file, passwd) {
     var content = fs.readFileSync(file).toString("utf-8")
     return vntkit.account.decrypt(content, passwd, false)
 }
@@ -40,7 +36,7 @@ var abi = JSON.parse(wasmabi.toString("utf-8"))
 
 //下面为各个函数
 
-async function sendRawTransaction(account:any, to:string, data:string, value:string) {
+async function sendRawTransaction(account, to, data, value) {
     var nonce = vnt.core.getTransactionCount(account.address);
     var options = {
         nonce: nonce,
@@ -70,7 +66,7 @@ async function sendRawTransaction(account:any, to:string, data:string, value:str
 }
 
 //存入一个证书,返回交易信息
-async function addCertificate(school:string, name:string, idnumber:string, degreetype:string, major:string, graduationdate:string, studentnumber:string, certificatenumber:string){
+async function addCertificate(school, name, idnumber, degreetype, major, graduationdate, studentnumber, certificatenumber){
     //存入时加密
     school=aesEncrypt(school)
     name = aesEncrypt(name)
@@ -94,8 +90,8 @@ async function addCertificate(school:string, name:string, idnumber:string, degre
 }
 
 //根据交易hash获取交易，默认请求100次
-async function getTransaction(transactionhash:string){
-    var result:any={}
+async function getTransaction(transactionhash){
+    var result=""
     let trytime=100
     while(trytime-->=0){
         result=vnt.core.getTransaction(transactionhash)
@@ -108,7 +104,7 @@ async function getTransaction(transactionhash:string){
 }
 
 //获取证书信息
-function getCertificate(certificateNumber:string, idnumber:string){
+function getCertificate(certificateNumber, idnumber){
     //加密参数
     certificateNumber =aesEncrypt(certificateNumber)
     idnumber =aesEncrypt(idnumber)
@@ -119,7 +115,7 @@ function getCertificate(certificateNumber:string, idnumber:string){
 }
 
 //学生注册,返回证书编号
-function existCertificate(name:string, studentnumber:string, school:string, idnumber:string){
+function existCertificate(name, studentnumber, school, idnumber){
     //加密参数
     name = aesEncrypt(name)
     studentnumber = aesEncrypt(studentnumber)
@@ -135,7 +131,7 @@ function existCertificate(name:string, studentnumber:string, school:string, idnu
 }
 
 //核验证书
-function checkCertificate(certificatenumber:string, name:string, school:string, degreetype:string, graduationdate:string, major:string){
+function checkCertificate(certificatenumber, name, school, degreetype, graduationdate, major){
     //加密参数
     certificatenumber=aesEncrypt(certificatenumber)
     name=aesEncrypt(name)
@@ -152,7 +148,7 @@ function checkCertificate(certificatenumber:string, name:string, school:string, 
     else{return false}
 }
 
-export default{
+module.exports={
     addCertificate:addCertificate,
     getCertificate:getCertificate,
     existCertificate:existCertificate,

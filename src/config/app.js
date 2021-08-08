@@ -1,4 +1,4 @@
-import { DubboServiceProvider } from '@dazejs/dubbo-provider'
+import {DubboServiceProvider} from "@dazejs/dubbo-provider"
 export default {
   /**
    * debug mode

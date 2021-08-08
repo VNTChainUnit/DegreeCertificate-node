@@ -7,8 +7,8 @@ import {
 export default class Hello extends BaseController {
   @http.get()
   index() {
-    return this.render('hello', {
-      name: 'Daze.js'
-    });
+    return "Server start successfully!"
   }
+
+
 }

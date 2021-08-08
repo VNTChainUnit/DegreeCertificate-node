@@ -1,3 +1,4 @@
 node_modules/
-private.ts
+private.js
 .vscode/
+app/service/blockchain/owneraccount

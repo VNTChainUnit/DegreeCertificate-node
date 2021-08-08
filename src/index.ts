@@ -1,9 +1,0 @@
-/**
- * @author   GenjiLemon<lemonfay@qq.com>
- */
-
-import { Application } from '@dazejs/framework';
-
-const app = new Application();
-
-app.run();
