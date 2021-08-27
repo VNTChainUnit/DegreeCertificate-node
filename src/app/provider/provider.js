@@ -35,7 +35,7 @@ export default class extends DubboProvider {
   @dubbo.method()
   async addCertificate(school, name, idnumber, degreeType, major, graduationDate, studentNumber, certificateNumber) {
     var res = await BlocckChainService.addCertificate(school, name, idnumber, degreeType, major, graduationDate, studentNumber, certificateNumber);
-    if (!res) res = "";
+    if (!res) return "";
     else {
       delete res['r']
       delete res['s']
